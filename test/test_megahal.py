@@ -36,16 +36,23 @@ class TestMegaHAL(unittest.TestCase):
 
     def test_cleanup(self):
         self.write_initial_training()
-        mh = libmegahal.MegaHAL(path=self.path)
+        mh = libmegahal.MegaHAL(path=self.path, autosave=False)
         mh.learn('Hello world!')
         mh.cleanup()
         self.assertTrue(os.path.exists(os.path.join(self.path, 'megahal.brn')))
 
     def test_no_cleanup(self):
         self.write_initial_training()
-        mh = libmegahal.MegaHAL(path=self.path)
+        mh = libmegahal.MegaHAL(path=self.path, autosave=False)
         mh.learn('Hello world!')
         self.assertFalse(os.path.exists(os.path.join(self.path, 'megahal.brn')))
+
+    def test_autosave(self):
+        self.write_initial_training()
+        mh = libmegahal.MegaHAL(path=self.path, autosave=True)
+        mh.learn('Hello world!')
+        del mh
+        self.assertTrue(os.path.exists(os.path.join(self.path, 'megahal.brn')))
 
     def test_initial_greeting(self):
         self.write_initial_training()

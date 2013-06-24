@@ -13,12 +13,18 @@ class MegaHAL:
     print mh.do_reply('Hello.')
     my.cleanup()
     """
-    def __init__(self, path='.'):
+    initialized = False
+    autosave = True
+    data_path = None
+
+    def __init__(self, path='.', autosave=True):
         """  MegaHAL initialization
 
         Keyword arguments:
         path -- Path to the MegaHAL brain
         """
+        self.autosave = autosave
+
         if not (
             os.path.isfile(os.path.join(path, 'megahal.brn'))
             or os.path.isfile(os.path.join(path, 'megahal.trn'))
@@ -33,6 +39,16 @@ class MegaHAL:
         pylibmegahal.megahal_setnoprompt()
         pylibmegahal.megahal_initialize()
         os.chdir(old_path)
+        self.initialized = True
+
+    def __del__(self):
+        """ Clean up after dereference
+
+        Note that __del__ is not guaranteed to always trigger if an
+        instance is deleted.  To be sure, call cleanup() yourself.
+        """
+        if self.initialized and self.autosave:
+            self.cleanup()
 
     def cleanup(self):
         """ Save and clean up """
