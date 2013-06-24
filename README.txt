@@ -11,4 +11,4 @@ interface to libmegahal.
     print mh.initial_greeting()
     mh.learn('Hello world!')
     print mh.do_reply('Hello.')
-    my.cleanup()
+    mh.cleanup()

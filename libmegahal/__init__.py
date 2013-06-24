@@ -11,14 +11,14 @@ class MegaHAL:
     print mh.initial_greeting()
     mh.learn('Hello world!')
     print mh.do_reply('Hello.')
-    my.cleanup()
+    mh.cleanup()
     """
     initialized = False
     autosave = True
     data_path = None
 
     def __init__(self, path='.', autosave=True):
-        """  MegaHAL initialization
+        """ MegaHAL initialization
 
         Keyword arguments:
         path -- Path to the MegaHAL brain
