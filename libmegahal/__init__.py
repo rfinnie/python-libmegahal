@@ -16,9 +16,9 @@ class MegaHAL:
     Note that due to the limitation of the C library this class wraps,
     you can only run one instance at a time.  Consider yourself warned.
     """
-    initialized = False
     autosave = True
-    data_path = None
+    _data_path = None
+    _initialized = False
 
     def __init__(self, path='.', autosave=True):
         """ MegaHAL initialization
@@ -34,15 +34,15 @@ class MegaHAL:
         ):
             raise OSError('%s: megahal.brn or megahal.trn not found' % path)
 
-        self.data_path = os.path.abspath(path)
+        self._data_path = os.path.abspath(path)
         old_path = os.getcwd()
-        os.chdir(self.data_path)
+        os.chdir(self._data_path)
         pylibmegahal.megahal_setnobanner()
         pylibmegahal.megahal_setnowrap()
         pylibmegahal.megahal_setnoprompt()
         pylibmegahal.megahal_initialize()
         os.chdir(old_path)
-        self.initialized = True
+        self._initialized = True
 
     def __del__(self):
         """ Clean up after dereference
@@ -50,13 +50,13 @@ class MegaHAL:
         Note that __del__ is not guaranteed to always trigger if an
         instance is deleted.  To be sure, call cleanup() yourself.
         """
-        if self.initialized and self.autosave:
+        if self._initialized and self.autosave:
             self.cleanup()
 
     def cleanup(self):
         """ Save and clean up """
         old_path = os.getcwd()
-        os.chdir(self.data_path)
+        os.chdir(self._data_path)
         pylibmegahal.megahal_cleanup()
         os.chdir(old_path)
 
