@@ -12,6 +12,9 @@ class MegaHAL:
     mh.learn('Hello world!')
     print mh.do_reply('Hello.')
     mh.cleanup()
+
+    Note that due to the limitation of the C library this class wraps,
+    you can only run one instance at a time.  Consider yourself warned.
     """
     initialized = False
     autosave = True
