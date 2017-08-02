@@ -1,4 +1,4 @@
-from distutils.core import setup, Extension
+from setuptools import setup, Extension
 
 pylibmegahal_ext = Extension(
     'libmegahal/pylibmegahal',
@@ -9,8 +9,8 @@ pylibmegahal_ext = Extension(
 )
 
 setup(
-    name='LibMegaHAL',
-    version='0.1',
+    name='libmegahal',
+    version='0.2',
     author='Ryan Finnie',
     author_email='ryan@finnie.org',
     packages=['libmegahal'],
@@ -19,4 +19,5 @@ setup(
     license='LICENSE.txt',
     description='Python interface to libmegahal',
     long_description=open('README.txt').read(),
+    test_suite='test',
 )

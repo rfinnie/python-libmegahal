@@ -91,6 +91,20 @@ static PyObject * wrap_megahal_do_reply(PyObject * s, PyObject * args) {
     return Py_BuildValue("s", ret);
 }
 
+#ifdef PYTHON_ABI_VERSION
+static struct PyModuleDef pylibmegahal = {
+    PyModuleDef_HEAD_INIT,
+    "pylibmegahal",
+    NULL,
+    -1,
+    megahalMethods
+};
+
+PyMODINIT_FUNC PyInit_pylibmegahal(void) {
+    return PyModule_Create(&pylibmegahal);
+}
+#else
 void initpylibmegahal(void) {
     (void)Py_InitModule("pylibmegahal", megahalMethods);
 }
+#endif
