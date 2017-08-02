@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import pylibmegahal
+from . import pylibmegahal
 import os
 
 

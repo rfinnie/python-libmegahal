@@ -1,7 +1,7 @@
 from setuptools import setup, Extension
 
 pylibmegahal_ext = Extension(
-    'libmegahal/pylibmegahal',
+    'libmegahal.pylibmegahal',
     sources=[
         'libmegahal/libmegahal.c',
         'libmegahal/pylibmegahal.c'
